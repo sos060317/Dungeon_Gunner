@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RoomNodeGraph", menuName = "Scriptable Object/Dungeon/Room Node Type")]
+[CreateAssetMenu(fileName = "RoomNodeType_", menuName = "Scriptable Object/Dungeon/Room Node Type")]
 public class RoomNodeTypeSO : ScriptableObject
 {
     public string roomNodeTypeName;
@@ -35,4 +36,13 @@ public class RoomNodeTypeSO : ScriptableObject
     [Header("One Type Should Be None (Unassigned)")]
     #endregion Header
     public bool isNone;
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckEmptyString(this, nameof(roomNodeTypeName), roomNodeTypeName);
+    }
+#endif
+    #endregion
 }
